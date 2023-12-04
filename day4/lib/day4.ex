@@ -13,48 +13,36 @@ defmodule Day4 do
   end
 
   def scratchcard_sum() do
-    list =
+    new_list =
       read_file()
       |> parse_string()
-
-    new_list =
-      list
       |> Enum.map(fn %{card: card, winning_numbers: winning_numbers, numbers: numbers} ->
         %{card: card, amount: calc_number_winning_cards(numbers, winning_numbers)}
       end)
-
-    #  [%{card: 1, amount: 4}, %{card: 2, amount: 2}, ...]
 
     recursive_scratchcard(new_list, new_list) |> Enum.count()
   end
 
   defp recursive_scratchcard(new_list, original_list) do
-    IO.inspect(new_list)
-
-    updated_new_list =
-      Enum.map(new_list, fn %{card: card, amount: amount} ->
-        if amount == 0 do
-          %{card: card, amount: amount}
-        else
-          Enum.concat(
-            [%{card: card, amount: amount}],
-            Enum.filter(original_list, fn %{card: card2} ->
-              card2 >= card + 1 && card2 <= card + amount
-            end)
-            |> recursive_scratchcard(original_list)
-          )
-        end
-      end)
-      |> List.flatten()
+    Enum.map(new_list, fn %{card: card, amount: amount} ->
+      if amount == 0 do
+        %{card: card, amount: amount}
+      else
+        Enum.concat(
+          [%{card: card, amount: amount}],
+          Enum.filter(original_list, fn %{card: card2} ->
+            card2 >= card + 1 && card2 <= card + amount
+          end)
+          |> recursive_scratchcard(original_list)
+        )
+      end
+    end)
+    |> List.flatten()
   end
 
   defp calc_number_winning_cards(numbers, winning_numbers) do
     Enum.map(numbers, fn number ->
-      if Enum.member?(winning_numbers, number) do
-        1
-      else
-        0
-      end
+      if Enum.member?(winning_numbers, number), do: 1, else: 0
     end)
     |> Enum.sum()
   end
@@ -62,19 +50,11 @@ defmodule Day4 do
   defp calc_score(numbers, winning_numbers) do
     list =
       Enum.map(numbers, fn number ->
-        if Enum.member?(winning_numbers, number) do
-          1
-        else
-          0
-        end
+        if Enum.member?(winning_numbers, number), do: 1, else: 0
       end)
       |> Enum.filter(fn x -> x == 1 end)
 
-    if Enum.count(list) == 0 do
-      0
-    else
-      2 ** (Enum.count(list) - 1)
-    end
+    if Enum.count(list) == 0, do: 0, else: 2 ** (Enum.count(list) - 1)
   end
 
   defp parse_string(string) do
@@ -95,10 +75,7 @@ defmodule Day4 do
         |> Enum.map(&String.to_integer/1)
       end
 
-      winning_numbers = parse_numbers.(0)
-      numbers = parse_numbers.(1)
-
-      %{card: card_number, winning_numbers: winning_numbers, numbers: numbers}
+      %{card: card_number, winning_numbers: parse_numbers.(0), numbers: parse_numbers.(1)}
     end)
   end
 
