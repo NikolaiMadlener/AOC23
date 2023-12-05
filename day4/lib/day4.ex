@@ -57,7 +57,7 @@ defmodule Day4 do
     if Enum.count(list) == 0, do: 0, else: 2 ** (Enum.count(list) - 1)
   end
 
-  defp parse_string(string) do
+   
     string
     |> String.replace(~r/Card /, "")
     |> String.split("\n")
