@@ -106,6 +106,6 @@ defmodule Day8 do
   end
 
   defp read_file() do
-    File.read!("/Users/madlener/git/AOC23/day8/lib/input-8.txt")
+    File.read!("/Users/madlener/git/AOC23/2023/day8/lib/input-8.txt")
   end
 end

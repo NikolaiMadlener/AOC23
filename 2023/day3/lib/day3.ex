@@ -129,6 +129,6 @@ defmodule Day3 do
   end
 
   defp read_file() do
-    File.read!("/Users/madlener/git/AOC23/day3/lib/input-3.txt")
+    File.read!("/Users/madlener/git/AOC23/2023/day3/lib/input-3.txt")
   end
 end

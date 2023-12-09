@@ -57,7 +57,7 @@ defmodule Day4 do
     if Enum.count(list) == 0, do: 0, else: 2 ** (Enum.count(list) - 1)
   end
 
-   
+  defp parse_string(string) do
     string
     |> String.replace(~r/Card /, "")
     |> String.split("\n")
@@ -80,6 +80,6 @@ defmodule Day4 do
   end
 
   defp read_file() do
-    File.read!("/Users/madlener/git/AOC23/day4/lib/input-4.txt")
+    File.read!("/Users/madlener/git/AOC23/2023/day4/lib/input-4.txt")
   end
 end

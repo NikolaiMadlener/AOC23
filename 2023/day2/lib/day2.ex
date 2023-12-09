@@ -59,7 +59,7 @@ defmodule Day2 do
   end
 
   defp read_file() do
-    File.read!("/Users/madlener/git/AOC23/day2/lib/input-2.txt")
+    File.read!("/Users/madlener/git/AOC23/2023/day2/lib/input-2.txt")
     |> String.split("\n")
   end
 end
